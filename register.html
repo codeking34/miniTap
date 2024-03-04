@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="w3.css">      
+  <title>Register</title>  
+</head>
+<body><div class="w3-center w3-container" style="margin:auto;margin-top:40px;position:relative; display: block;" id="myDiv2" >
+        
+        
+    <form id="myForm" class="w3-container w3-card-4 w3-white w3-border">
+        <span class="w3-button w3-card-4 w3-center w3-red w3-right" style="margin:0 auto;">MiniTap&copy;</span>
+        
+        <p class="w3-tag w3-text-blue w3-medium w3-center" style="font-family:courier;width:100%">SignUp </p>
+           <br>                
+        <input type="text" placeholder="FullName" class="w3-input w3-border" id="fullnameInp">
+        <br>
+        <input type="tel" placeholder="PhoneNumber" class="w3-input w3-border" id="phoneInp">
+        <br>
+        <input type="text" placeholder="Address" class="w3-input w3-border" id="addressInp">
+        <br>
+        
+        <input type="email" placeholder="Email" class="w3-input w3-border" id="emailInp">
+        <br>
+        <input type="password" placeholder="password" class="w3-input w3-border" id="password">
+        <br>
+           <button  type="submit" class ="w3-button w3-left w3-wide w3-black w3-round"  style="width:100%;margin-bottom:12px;">Register</button>
+    <br>  
+     <a style=" color:green;text-decoration:none;" href="online.html" class="w3-right w3-large w3-wide w3-button w3-green w3-round">Login</a>
+    <br>
+    
+    
+    </form>
+    <br>
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+       import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+       import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+       
+       const firebaseConfig = {
+       apiKey: "AIzaSyAd9sdw7WFLRTP75YKvOMgm4rIAjKT6NjQ",
+       authDomain: "minitap-92348.firebaseapp.com",
+       projectId: "minitap-92348",
+       storageBucket: "minitap-92348.appspot.com",
+       messagingSenderId: "294055937226",
+       appId: "1:294055937226:web:4ba0ccf236b858c18c2033",
+       measurementId: "G-03BM9C25FD"
+       };
+      
+         const app = initializeApp(firebaseConfig);
+         const db =getDatabase();
+         const auth = getAuth(app);
+         let emailInp= document.getElementById('emailInp');
+         let fullnameInp = document.getElementById('fullnameInp');
+         let address= document.getElementById('addressInp');
+         let phoneInp= document.getElementById('phoneInp');
+         let password= document.getElementById('password');
+         let mainForm= document.getElementById('myForm');
+
+         let RegisterUser=evt=>{
+            evt.preventDefault();
+            createUserWithEmailAndPassword(auth,emailInp.value,password.value)
+            .then((credentails)=>{
+                //storing to database
+                set(ref(db,"UsersAuthList/"+credentails.user.uid),{
+
+                    fullnameInp:fullnameInp.value,
+                    phoneInp:phoneInp.value,
+                    address:addressInp.value
+                })
+                alert("registration successfull");
+                window.location.href="online.html";
+            })
+            .catch((error)=>{
+alert(error.message);
+
+            })
+         }
+         mainForm.addEventListener("submit",RegisterUser);
+        </script> 
+</body>
+</html>

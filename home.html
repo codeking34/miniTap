@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> MiniTap</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+  <link rel="stylesheet" href="w3.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="w3-white w3-display-container">
+<header class="w3-top w3-container w3-red w3-padding ">
+  <span class="w3-button w3-card-4 w3-center" style="margin:0 auto;">MiniTap&copy;</span>
+  <span class="w3-right w3-xlarge w3-card-2">&#9874;</span>
+</header>
+<br>
+<!--withdrawal/ balance secrion-->
+<div class="container w3-container w3-card-4">
+  <div class="sidebar content" >
+    <div id="withdrawalSection"> 
+   
+           <p id="balance">Balance: $0 Xdt</p>
+    <h5>MiniTap&copy;</h5>
+    <br>
+    <span class="w3-center w3-xxlarge w3-card-2">&#8694;</span>
+           </div>  
+  </div>
+  
+  <div class="content w3-gray w3-card-4 ">
+  <span style="font-size:100px;" class="w3-card w3-border w3-white w3-circle w3-center">&#9874;</span>
+ <p id="msg"></p>
+        <button type="button" id="logout">Sign Out</button>
+ </div>  
+</div>
+<div id="withdrawalSection">  
+<h3 id="greet" class="w3-text-teal w3-card"></h3>
+
+    <input type="text" id="walletAddress" class="w3-input w3-border" placeholder="ENTER AMOUNT">
+   <br><br>
+   <button onclick="withdraw()">Withdraw</button>
+ </div>
+</div>
+
+<div id="miningSection" class="w3-section w3-black w3-card-2">
+     <h4 class="w3-center w3-italic">START EARNING NOW</h4>
+     <button onclick="startMining()">Start Mining</button>
+     <p id="miningStatus" class="w3-right"></p>
+     <br>
+     <br>
+        
+<br>
+<!--adder section-->
+   <div class="w3-card-4 w3-light-grey w3-card-2" style="width:80%;max-width:350px;margin:auto;">     
+   <div class="w3-container w3-center w3-gray">    
+<h4 class="w3-black w3-center w3-wide">Machine Extractor</h4>
+<div id="hideButton" style="display:none;">
+<button id="incrementButton">Vk2 engine</button>      
+   <br>
+   </div>
+   <br>
+   <input class="w3-input w3-border" type="text" placeholder=" Enter Access Code"id="couponInput"  oninput="validateCoupon()" >
+   <br>
+       <a href="https://wa.me/message/I6EQHCTAF46ZI1" class="w3-btn w3-button w3-btn-block w3-green" id="validateButton" >Get Code</a>
+   <p id="message" class="w3-text-white"></p>        
+   </p>
+   <span style="font-size:40px;float:right">&#9989;</span>
+   
+   </div>
+            </div>  
+            <br>
+            </div>
+            
+   
+    <!--price crypto tracker -->
+    <div class="container1 w3-light-blue">
+    <h3 class="w3-text-white">Crypto Price Tracker</h3>
+    <div id="coinList" class="w3-card w3-white"></div>
+    </div>
+    
+    <script src="coin.js"> </script>
+       
+</div>
+<hr class="w3-padding w3-orange">
+<script src="coupon.js"></script>
+
+</script>
+
+<div class="w3-container w3-teal w3-footer">
+
+<div class="tradingview-widget-container w3-container ">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js"
+            async>
+                {
+                    "colorTheme": "light",
+                        "dateRange": "12M",
+                            "exchange": "US",
+                                "showChart": true,
+                                    "locale": "en",
+                                        "largeChartUrl": "",
+                                            "isTransparent": true,
+                                                "showSymbolLogo": false,
+                                                    "showFloatingTooltip": false,
+                                                        "width": "100%",
+                                                            "height": "305",
+                                                                "plotLineColorGrowing": "rgba(41, 98, 255, 1)",
+                                                                    "plotLineColorFalling": "rgba(41, 98, 255, 1)",
+                                                                        "gridLineColor": "rgba(240, 243, 250, 0)",
+                                                                            "scaleFontColor": "rgba(120, 123, 134, 1)",
+                                                                                "belowLineFillColorGrowing": "rgba(41, 98, 255, 0.12)",
+                                                                                    "belowLineFillColorFalling": "rgba(41, 98, 255, 0.12)",
+                                                                                        "belowLineFillColorGrowingBottom": "rgba(41, 98, 255, 0)",
+                                                                                          "belowLineFillColorFallingBottom": "rgba(41, 98, 255, 0)",                                                                                               "symbolActiveColor": "rgba(41, 98, 255, 0.12)"
+                }
+            </script>
+    </div>
+    <!-- TradingView Widget END -->
+<div class="w3-card-4 w3-white">
+   <h2 class="w3-center w3-text-black ">PAYMENT THRESHOLD </h2>
+   <canvas id="myChart" width="250" height="250"></canvas>  
+   </div>
+   <br>
+   <br>
+
+</div>
+<script src="Network.js"></script>
+<script src="balance.js"> </script>
+<script src="minig.js"></script>
+<script>
+        // Retrieving information from session storage using parse()
+        let userCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let userInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let msgHead = document.getElementById("msg");
+        let greetHead = document.getElementById("greet");
+        let signBtn = document.getElementById("logout");
+
+        // Displaying user credentials from session storage and database
+        msgHead.innerText = `${userCreds.email} `;
+        greetHead.innerText = `${userInfo.fullname} ${userInfo.phone}`;
+
+        let btn2 = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+            window.location = "online.html";
+        }
+
+        let checkCred = () => {
+            if (!sessionStorage.getItem("user-creds")) {
+                window.location = "online.html";
+            }
+        }
+
+        window.addEventListener("load", checkCred);
+        signBtn.addEventListener('click', btn2);
+    </script>
+ </body>
+</html>

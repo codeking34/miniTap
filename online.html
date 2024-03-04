@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="w3.css">      
+<title>Login</title>  
+</head>
+<body class="w3-display-container">
+<div class="w3-center w3-container" style="margin:auto; margin-top:100px; position:relative; display:block;" id="myDiv2">
+    <span class="w3-button w3-card-4 w3-center w3-red w3-right" style="margin:0 auto;">MiniTap&copy;</span>
+    <form id="myForm" class="w3-container w3-card-4 w3-white w3-border">
+        <p class="w3-tag w3-blue w3-medium w3-center" style="font-family:courier; width:100%">Welcome</p>
+        <br>
+        <input type="email" placeholder="Email" class="w3-input w3-border" id="emailInp">             
+        <br>                
+        <input type="password" placeholder="Password" class="w3-input w3-border" id="password">
+        <br>
+        <button type="submit" class="w3-button w3-left w3-wide w3-black w3-round" style="width:100%; margin-bottom:12px;">Login</button>
+        <br>  
+        <a style="color:green; text-decoration:none;" href="register.html" class="w3-right w3-large w3-wide w3-button w3-green w3-round">Register</a>
+    </form>
+</div>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    
+    const firebaseConfig = {
+       apiKey: "AIzaSyAd9sdw7WFLRTP75YKvOMgm4rIAjKT6NjQ",
+       authDomain: "minitap-92348.firebaseapp.com",
+        projectId: "minitap-92348",
+        storageBucket: "minitap-92348.appspot.com",
+        messagingSenderId: "294055937226",
+        appId: "1:294055937226:web:4ba0ccf236b858c18c2033",
+        measurementId: "G-03BM9C25FD"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const auth = getAuth(app);
+    const dbref = ref(db);
+    let emailInp = document.getElementById('emailInp');
+    let password = document.getElementById('password');
+    let mainForm = document.getElementById('myForm');
+
+    let signInUser = evt => {
+        evt.preventDefault();
+        signInWithEmailAndPassword(auth, emailInp.value, password.value)
+        .then((credentials) => {
+            // Get user info from database
+            get(child(dbref, "UsersAuthList/" + credentials.user.uid))
+            .then((snapshot) => {
+                if(snapshot.exists()){
+                    // Store user info and credentials in session storage
+                    sessionStorage.setItem("user-info", JSON.stringify({
+                        fullname: snapshot.val().fullname,
+                        phone: snapshot.val().phone
+                    }));
+                    sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+                    window.location.href = "home.html";   
+                }
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+            console.log("Successfully signed in");
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+    };
+
+    mainForm.addEventListener("submit", signInUser);
+</script> 
+</body>
+</html>
