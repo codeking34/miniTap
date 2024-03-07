@@ -5,6 +5,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title> MiniTap</title>
+  <style type="text/css">
+  .callout {
+  position:sticky;
+  display: inline-block;
+  float:right;
+  margin-right:52px;
+  }
+  
+  .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  padding: 10px;
+  z-index: 1;
+  }
+  
+  .dropdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  }
+  
+  .dropdown-content th, .dropdown-content td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  }
+  
+  .dropdown-content th {
+  background-color: #f2f2f2;
+  }
+  
+  .dropdown-content tr:nth-child(even) {
+  background-color: #f2f2f2;
+  }
+  
+  .dropdown-content tr:hover {
+  background-color: #ddd;
+  }
+  
+  .callout button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  }
+  
+  .close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  }
+  
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
   <link rel="stylesheet" href="w3.css">
   <link rel="stylesheet" href="style.css">
@@ -15,18 +72,20 @@
   <span class="w3-right w3-xlarge w3-card-2">&#9874;</span>
 </header>
 <br>
+
 <!--withdrawal/ balance secrion-->
 <div class="container w3-container w3-card-4">
   <div class="sidebar content" >
     <div id="withdrawalSection"> 
-   
+   <a href="#" download="#" class="w3-black w3-btn" >Upgrade</a>
            <p id="balance">Balance: $0 Xdt</p>
     <h5>MiniTap&copy;</h5>
     <br>
     <span class="w3-center w3-xxlarge w3-card-2">&#8694;</span>
+    <h1>VK2</h1>
            </div>  
   </div>
-  
+ 
   <div class="content w3-gray w3-card-4 ">
   <span style="font-size:100px;" class="w3-card w3-border w3-white w3-circle w3-center">&#9874;</span>
  <p id="msg"></p>
@@ -41,6 +100,53 @@
    <button onclick="withdraw()">Withdraw</button>
  </div>
 </div>
+<!--price table-->
+<div class="callout">
+  <button onclick="toggleDropdown()">Vk2.0 Prices</button>
+  <span class="close-btn" onclick="closeCallout()">&times;</span>
+  <div id="dropdownContent" class="dropdown-content">
+    <table>
+    <p>version</p>
+      <thead>
+        <tr>
+          <th>vk2.0</th>
+        <th>Price</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>7x</td>
+          <td>&#8358;6,000</td>
+        </tr>
+        <tr>
+          <td>10x</td>
+          <td>&#8358;9,500</td>
+        </tr>
+        <tr>
+          <td>12x</td>
+          <td>&#8358;12,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script type="text/javascript">
+function toggleDropdown() {
+  var dropdownContent = document.getElementById("dropdownContent");
+  if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+  } else {
+    dropdownContent.style.display = "block";
+  }
+}
+
+function closeCallout() {
+  var callout = document.querySelector('.callout');
+  callout.style.display = 'none';
+}
+
+</script>
 
 <div id="miningSection" class="w3-section w3-black w3-card-2">
      <h4 class="w3-center w3-italic">START EARNING NOW</h4>
@@ -55,8 +161,8 @@
    <div class="w3-container w3-center w3-gray">    
 <h4 class="w3-black w3-center w3-wide">Machine Extractor</h4>
 <div id="hideButton" style="display:none;">
-<button id="incrementButton">Vk2 engine</button>      
-   <br>
+<button id="incrementButton">Vk2 engine</button> 
+<br>
    </div>
    <br>
    <input class="w3-input w3-border" type="text" placeholder=" Enter Access Code"id="couponInput"  oninput="validateCoupon()" >
@@ -125,7 +231,11 @@
    <br>
 
 </div>
-<script src="Network.js"></script>
+<script>
+
+
+
+</script>
 <script src="balance.js"> </script>
 <script src="minig.js"></script>
 <script>
